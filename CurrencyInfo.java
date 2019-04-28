@@ -3,7 +3,7 @@ import java.util.HashMap;
 public class CurrencyInfo implements Currency {
 
 	public String name;
-	HashMap<CurrencyInfo, Double> children;
+	public HashMap<CurrencyInfo, Double> children;
 
 	public CurrencyInfo(String name) {
 		this.name = name;
@@ -11,19 +11,18 @@ public class CurrencyInfo implements Currency {
 	}
 
 	@Override
-	public void add(String currency, Double rate) {
+	public void add(CurrencyInfo currency, Double rate) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void remove(CurrencyInfo currency) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void remove(String currency) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void remove(String currency, Double rate) {
+	public void remove(CurrencyInfo currency, Double rate) {
 		// TODO Auto-generated method stub
 
 	}
@@ -31,7 +30,7 @@ public class CurrencyInfo implements Currency {
 	@Override
 	public int getSize() {
 		// TODO Auto-generated method stub
-		return 0;
+		return this.children.size();
 	}
 
 }
