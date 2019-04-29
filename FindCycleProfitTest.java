@@ -3,16 +3,24 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 
 import org.junit.Test;
-
+/**
+ * JUnit Test for FindCycleProfit
+ * @author Yanpeng Qi, Yilin Sun
+ *
+ */
 public class FindCycleProfitTest {
-
+	/**
+	 * initialize FindCycleProfit object and test if it is successful
+	 */
 	@Test
 	public void testFindCycleProfit() {
 		FindCycleProfit test1 = new FindCycleProfit();
 		assertTrue(test1.paths == null);
 		assertTrue(test1.paths.size() == 0);
 	}
-
+	/**
+	 * test FindCycle found the best case to be starting with USD
+	 */
 	@Test
 	public void testFindCycle() {
 		CurrencyInfo test1 = new CurrencyInfo("CHY");

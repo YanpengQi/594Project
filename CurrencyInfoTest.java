@@ -1,7 +1,11 @@
 import static org.junit.Assert.*;
 
 import org.junit.Test;
-
+/**
+ * This is a tester for CurrencyInfo class
+ * @author sYanpeng Qi, Yilin Sun, Scarlett Yu
+ *
+ */
 public class CurrencyInfoTest {
 
 	@Test
