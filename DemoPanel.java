@@ -3,6 +3,10 @@ import javax.swing.JPanel;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -10,12 +14,10 @@ import javax.swing.JLabel;
 
 
 import javax.swing.JTextField;
-/**
- * This class is the Java Swing demo page for the project, it creates several button and input sections for the users
- * @author Yilin Sun
- *
- */
-	public class DemoPanel extends JPanel{
+
+import org.json.JSONException;
+
+public class DemoPanel extends JPanel{
 	private JLabel baseCurrency,amounts,limitNum;            
 	private JButton button,button2;         
 	private JTextField textCurrency, textAmounts,textlimitNum;             
@@ -24,19 +26,32 @@ import javax.swing.JTextField;
     private JPanel panelShowResult;
     private JPanel panelLoginButton;
     private String result;
-    
-    DemoPanel() {
+    private ArrayList<CurrencyInfo>list;
+    private String[]array= {"AED","AFN","CAD","BZD","USD","CNY","EUR","GBP","JPY","HRK","TWD","EGP","BRL","IDR","HUF","FKP","NAD","TRY","ZWL","QAR"};
+	
+    public JTextField getTextCurrency() {
+		return textCurrency;
+	}
+
+	public JTextField getTextAmounts() {
+		return textAmounts;
+	}
+
+	public JTextField getTextlimitNum() {
+		return textlimitNum;
+	}
+
+	DemoPanel() throws IOException, JSONException {
 		createButtonAndListener();
 		createComponents();
 	}
-	/**
-	 * the method create components for demo
-	 */
-    public void createComponents(){
+	
+    public void createComponents() throws IOException, JSONException{
+    	list=new ArrayList<CurrencyInfo>();
     	this.baseCurrency = new JLabel("Base currency:");
     
     	this.amounts = new JLabel("       Amounts:");
-    	this.limitNum=new JLabel("Exchanging currency number (1-10):");
+    	this.limitNum=new JLabel("Exchanging currency (1-10):");
     	
     	this.textCurrency = new JTextField(10);
     	this.textAmounts = new JTextField(10);
@@ -67,59 +82,58 @@ import javax.swing.JTextField;
 		 panelShowResult.add(button);
 		 panelShowResult.add(button2);
 		 add(panelShowResult);
-
-		
+		 for(int i=0;i<array.length;i++) {
+		    API currency = new API();
+			String s = currency.createURL(array[i]);
+			URL url = new URL(s);
+			String response=currency.makeAPICall(url);
+			CurrencyInfo cur=currency.ParseCurrencyJason(response);
+			list.add(cur);
     }
-    /**
-     * this method creates buttons and listeners
-     */
-    private void createButtonAndListener() {
-    	button = new JButton("Go");
-    	button.addActionListener(new ActionListener() {
-    		
-    		@Override
-    		public void actionPerformed(ActionEvent e) {
-    			//we have access to all of the Frames components now
-    			//System.out.println(textCurrency.getText());
-    			//System.out.println(textAmounts.getText());
-    			//System.out.println(textlimitNum.getText());
-    			if(textlimitNum.getText().equals("1")) {
-    				label.setText("ERROR! Need have more currency.");
-    			}
-    			else if(textCurrency.getText().equals("CNY")) {
-    				label.setText("CNY->JPY->EUR->USD->CNY "+ "Initial Amount: "+ textAmounts.getText()+"-> Final Amount: 101");
-    			}else if(textCurrency.getText().equals("USD")) {
-    			label.setText("USD->JPY->EUR->CNY->USD "+ "Initial Amount: "+ textAmounts.getText()+"-> Final Amount: 101");
-    			//label.setText(result);
-    		}else if(textCurrency.getText().equals("JPY")) {
-    			label.setText("JPY->CNY->USD->EUR->JPY "+"Initial Amount: "+textAmounts.getText()+"-> Final Amount: 100.3");
-    		}else if(textCurrency.getText().equals("EUR")) {
-    			label.setText("EUR->JPY->CNY->USD->EUR "+"Initial Amount: "+textAmounts.getText()+"-> Final Amount: 100.5");
-    		}else {
-    			label.setText("ERROR! No such currency.");
-    		}
-    		}
-    	});
-    	button2 = new JButton("Reset");
-    	button2.addActionListener(new ActionListener() {
-    		
-    		@Override
-    		public void actionPerformed(ActionEvent e) {
-    			//we have access to all of the Frames components now
-    			
-    			label.setText("Show the answer here!");
-    			textCurrency.setText("");
-    			textAmounts.setText("");
-    			textlimitNum.setText("");
-    			
-    		}
-    	});
+    }
+private void createButtonAndListener() {
+	button = new JButton("Go");
+	button.addActionListener(new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			//we have access to all of the Frames components now
+			//System.out.println(textCurrency.getText());
+			//System.out.println(textAmounts.getText());
+			//System.out.println(textlimitNum.getText());
+			if(textlimitNum.getText().equals("1")) {
+				label.setText("ERROR! Need have more currency.");
+			}
+			else if(textCurrency.getText().equals("CHY")) {
+				label.setText("CHY->JPY->EUR->USD->CHY "+textAmounts.getText()+"-> 101");
+			}else if(textCurrency.getText().equals("USD")) {
+			label.setText("USD->JPY->EUR->CHY->USD "+textAmounts.getText()+"-> 101");
+			//label.setText(result);
+		}else if(textCurrency.getText().equals("JPY")) {
+			label.setText("JPY->CHY->USD->EUR->JPY "+textAmounts.getText()+"-> 100.3");
+		}else if(textCurrency.getText().equals("EUR")) {
+			label.setText("EUR->JPY->CHY->USD->EUR "+textAmounts.getText()+"-> 100.5");
+		}else {
+			label.setText("ERROR! No such currency.");
+		}
+		}
+	});
+	button2 = new JButton("Reset");
+	button2.addActionListener(new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			//we have access to all of the Frames components now
+			
+			label.setText("Show the answer here!");
+			textCurrency.setText("");
+			textAmounts.setText("");
+			textlimitNum.setText("");
+			
+		}
+	});
 	
 	}
-    /**
-     * setter for result
-     * @param result 
-     */
 public void setResult(String result) {
 	this.result=result;
 }

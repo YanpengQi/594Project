@@ -1,33 +1,27 @@
+import java.io.IOException;
+
 import javax.swing.JFrame;
-/**
- * This is the main class for Swing demo
- * @author Yilin Sun
- *
- */
+
+import org.json.JSONException;
+
 public class DemoFrame extends JFrame {
-	/**
-	 * Constructor for DemoFrame
-	 * @param panel
-	 */
 	public DemoFrame(DemoPanel panel)
 	{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(500, 300);
-		this.setTitle("Currency Change Game Demo");
+		this.setTitle("Currency Exchange Game Demo");
 		this.add(panel);
 		this.setResizable(false);
 		this.setVisible(true);
 	}
-	/**
-	 * main method
-	 * @param args
-	 */
-	public static void main(String[] args)
+	
+	public static void main(String[] args) throws IOException, JSONException
 	{
 		DemoPanel panel = new DemoPanel();
+		
 		DemoFrame Frame = new DemoFrame(panel);
-		//panel.setResult("aaaaa");
+		
 	}	
-
+ 
 
 }

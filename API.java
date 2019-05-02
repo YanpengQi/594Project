@@ -93,32 +93,32 @@ public class API {
         return response.toString();
 	}
 	
-	public static void main(String[] args) throws MalformedURLException {
-		
-		//create the API URL
-		API currency = new API();
-		String s = currency.createURL("USD");
-		URL url = new URL(s);
-		
-		//ArrayList<RecipePuppyRecipe> rpRecipes = new ArrayList<>();
-		
-		try {
-			//make the API call and get a String response
-			String jsonResponse = currency.makeAPICall(url);
-			//parse the response and get an ArrayList of RecipePuppyRecipe objects
-			CurrencyInfo currencyInfo = currency.ParseCurrencyJason(jsonResponse);
-			//view the results in a proper Java object
-			for(CurrencyInfo rpr: currencyInfo.children.keySet()) {
-				System.out.println("currency type is : " + rpr.name + ", rate is: "  + currencyInfo.children.get(rpr));
-				//System.out.println("Ingredients "+rpr.getIngredients());
-				//System.out.println();
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	} 
+//	public static void main(String[] args) throws MalformedURLException {
+//		
+//		//create the API URL
+//		API currency = new API();
+//		String s = currency.createURL("USD");
+//		URL url = new URL(s);
+//		
+//		//ArrayList<RecipePuppyRecipe> rpRecipes = new ArrayList<>();
+//		
+//		try {
+//			//make the API call and get a String response
+//			String jsonResponse = currency.makeAPICall(url);
+//			//parse the response and get an ArrayList of RecipePuppyRecipe objects
+//			CurrencyInfo currencyInfo = currency.ParseCurrencyJason(jsonResponse);
+//			//view the results in a proper Java object
+//			for(CurrencyInfo rpr: currencyInfo.children.keySet()) {
+//				System.out.println("currency type is : " + rpr.name + ", rate is: "  + currencyInfo.children.get(rpr));
+//				//System.out.println("Ingredients "+rpr.getIngredients());
+//				//System.out.println();
+//			}
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (JSONException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	} 
 }
